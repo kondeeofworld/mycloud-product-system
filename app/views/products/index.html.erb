@@ -1,0 +1,35 @@
+<h1>Product List</h1>
+
+<table class="table">
+<thead>
+  <tr>
+  <td>#</td>
+  <td>Name</td>
+  <td>Category</td>
+  <td>Action</td>
+  </tr>
+</thead>
+<tbody>
+<% @products.each do |product| %>
+  <tr>
+    <td><%=product.id%></td>
+    <td><%= link_to product.name, product %></td>
+    <td><%=product.category.name%></td>
+    <td>
+    <%= link_to "แก้ไข" , edit_product_path(product) %> | 
+    <%= link_to "ลบ", product_path(product),
+                  method: :delete,
+                  data: { confirm: "Are you sure?" } %>
+    </td>
+  </tr>
+  <% end %>
+</tbody>
+</table>
+<div class="digg_pagination" style="float:right">
+  <div class="page_info">
+    <%= page_entries_info @products %>
+  </div>
+  <%= will_paginate @products, :container => false %>
+</div>
+
+<%= link_to "Add Product" , new_product_path, class:"btn btn-primary" %>

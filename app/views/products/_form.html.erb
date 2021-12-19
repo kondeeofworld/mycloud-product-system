@@ -1,0 +1,24 @@
+<%= form_with model: product do |form| %>
+  <div class="mb-3">
+    <%= form.label :name, class:"form-label" %><br>
+    <%= form.text_field :name, class:"form-control" %>
+    <% product.errors.full_messages_for(:name).each do |message| %>
+      <div class="alert alert-danger"><%= message %></div>
+    <% end %>
+  </div>
+
+    <div>
+    <%= form.label :category_id, class:"form-label" %><br>
+    <%= form.select :category_id, Category.all.collect { |p| [ p.name, p.id ] },{:prompt => "--Category--"},{
+      :class => "form-select"
+    }%>
+    <% product.errors.full_messages_for(:category_id).each do |message| %>
+    <div class="alert alert-danger"><%= message %></div>
+    <% end %>
+    <%= link_to "+ Add Category" , new_category_path %>
+  </div> 
+  <br>
+  <div>
+    <%= form.submit "Submit", class:"btn btn-primary" %>
+  </div>
+<% end %>

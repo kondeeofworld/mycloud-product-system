@@ -1,0 +1,10 @@
+<h1><%= @category.name %></h1>
+
+<p><%= @category.parent_cate_id %></p>
+
+<ul>
+  <li><%= link_to "Edit", edit_category_path(@category) %></li>
+  <li><%= link_to "Destroy", category_path(@category),
+                  method: :delete,
+                  data: { confirm: "Are you sure?" } %></li>
+</ul>

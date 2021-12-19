@@ -1,0 +1,43 @@
+<h1>Category List</h1>
+<%if @group_categories[nil]%>
+<table class="table">
+<thead>
+  <tr>
+    <td>#</td>
+    <td>Name</td>
+    <td>Children</td>
+    <td>Action</td>
+  </tr>
+</thead>
+<tbody>
+<% @group_categories[nil].each do |category| %>
+  <tr>
+    <td><%= category.id %></td>
+    <td><%= link_to category.name, category %></td>
+    <td>
+      <%if @group_categories[category.id]%>
+        <% @group_categories[category.id].each do |children| %>
+          <%= link_to children.name, edit_category_path(children) %> 
+          <%if children != @group_categories[category.id].last%>
+          ,
+          <%end%>
+        <%end%>
+      <%else%>
+         -
+      <%end%>
+    </td>
+    <td>
+    <%= link_to "แก้ไข", edit_category_path(category) %> |
+    <%= link_to "ลบ", category_path(category),
+                  method: :delete,
+                  data: { confirm: "Are you sure?" } %>
+    </td>    
+  </tr>
+<% end %>
+</tbody>
+</table>
+<%else%>
+  <div>Empty Category</div>
+  <br>
+<%end%>
+<%= link_to "Add Category", new_category_path, class:"btn btn-primary" %>
